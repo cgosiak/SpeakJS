@@ -4,8 +4,8 @@ import RPi.GPIO as GPIO
 def main(argument):
 	GPIO.setmode(GPIO.BCM)  # set board mode to Broadcom
 
-	GPIO.setup(argument, GPIO.OUT)
+	GPIO.setup(int(argument), GPIO.OUT)
 
-	GPIO.output(argument, 0)
+	GPIO.output(int(argument), 0)
 
 main(sys.argv[1])

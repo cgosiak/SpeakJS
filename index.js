@@ -32,7 +32,7 @@ function turnOff(port) {
 app.post('/off', function (req, res) {
 	var port = parseInt(req.body.port);
 	turnOff(port);
-	res.end("Turning On: " + port)
+	res.end("Turning Off: " + port)
 })
 
 
