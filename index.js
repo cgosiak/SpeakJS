@@ -12,28 +12,26 @@ app.get('/ghost', function (req, res) {
 })
 
 function turnOn(port) {
-	gpio.write(port, true, function(err) {
-		if (err) throw err;
-		console.log('Written to pin');
-	});
+	var spawn = require('child_process').spawn,
+	py = spawn('python3', ['./on.py', port]),
+	dataString = '';
 }
 
 app.post('/on', function (req, res) {
 	var port = parseInt(req.body.port);
-	gpio.setup(port , gpio.DIR_OUT, turnOn(port));
+	turnOn(port);
 	res.end("Turning On: " + port)
 })
 
 function turnOff(port) {
-	gpio.write(port, false, function(err) {
-		if (err) throw err;
-		console.log('Written to pin');
-	});
+	var spawn = require('child_process').spawn,
+	py = spawn('python3', ['./off.py', port]),
+	dataString = '';
 }
 
 app.post('/off', function (req, res) {
 	var port = parseInt(req.body.port);
-	gpio.setup(port , gpio.DIR_OUT, turnOff(port));
+	turnOff(port);
 	res.end("Turning On: " + port)
 })
 
