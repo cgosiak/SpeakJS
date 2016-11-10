@@ -11,22 +11,30 @@ app.get('/ghost', function (req, res) {
    res.end("Hello World")
 })
 
-app.post('/on', function (req, res) {
-	gpio.setup(req.body.port, gpio.DIR_OUT, function(err) {
+function turnOn(port) {
+	gpio.write(port, true, function(err) {
 		if (err) throw err;
-		console.log('Written to pin: ' + req.body.port);
+		console.log('Written to pin');
 	});
-	gpio.write(req.body.port, true);
-	res.end("Turning On: " + req.body.port)
+}
+
+app.post('/on', function (req, res) {
+	var port = parseInt(req.body.port);
+	gpio.setup(port , gpio.DIR_OUT, turnOn(port));
+	res.end("Turning On: " + port)
 })
 
-app.post('/off', function (req, res) {
-	gpio.setup(req.body.port, gpio.DIR_OUT, function(err) {
+function turnOff(port) {
+	gpio.write(port, false, function(err) {
 		if (err) throw err;
-		console.log('Written to pin: ' + req.body.port);
+		console.log('Written to pin');
 	});
-	gpio.write(req.body.port, false);
-	res.end("Turning Off: " + req.body.port)
+}
+
+app.post('/off', function (req, res) {
+	var port = parseInt(req.body.port);
+	gpio.setup(port , gpio.DIR_OUT, turnOff(port));
+	res.end("Turning On: " + port)
 })
 
 
